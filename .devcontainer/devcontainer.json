@@ -1,0 +1,38 @@
+{
+	"name": "CodeBank",
+	"dockerComposeFile": "docker-compose.yaml",
+	"service": "app",
+	"workspaceFolder": "/home/app",
+	"customizations": {
+		"vscode": {
+			"settings": { 
+				"go.toolsManagement.checkForUpdates": "local",
+				"go.useLanguageServer": true,
+				"go.gopath": "/home/vscode/go",
+				"go.goroot": "/usr/lib/go"
+			},
+			"extensions": [
+				"golang.Go",
+				"cweijan.vscode-postgresql-client2"
+			]
+		}
+	},
+	"forwardPorts": [5432, 9000, 50052],
+	"portsAttributes": {
+		"5432": {
+			"label": "PostgreSQL",
+			"onAutoForward": "notify"
+		},
+		"9000": {
+			"label": "pgadmin",
+			"onAutoForward": "openBrowser"
+		},
+		"50052": {
+			"label": "CodeBank",
+			"onAutoForward": "notify"
+		}
+	},
+	"postStartCommand": "go version",
+	"shutdownAction": "stopCompose",
+	"remoteUser": "vscode"
+}
