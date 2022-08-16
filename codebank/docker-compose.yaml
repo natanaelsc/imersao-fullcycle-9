@@ -2,7 +2,6 @@ version: "3"
 
 services:
   app:
-    container_name: codebank
     build: .
     ports:
       - "50052:50051"
