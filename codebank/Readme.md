@@ -17,7 +17,7 @@ password: 123456
 
 ### Conexão Banco de Dados
 
-Crie uma conexão para um novo banco de dados com as configurações abaixo.
+Crie uma nova conexão para o banco de dados com as configurações abaixo.
 
 ```txt
 name: db
@@ -28,35 +28,7 @@ username: postgres
 password: root
 ```
 
-Crie as tabelas para o banco de dados executando as [queries](/codebank/db.sql) abaixo.
-
-```sql
-CREATE TABLE credit_cards (
-    id uuid NOT NULL,
-    name VARCHAR NOT NULL,
-    number VARCHAR NOT NULL,
-    expiration_month VARCHAR NOT NULL,
-    expiration_year VARCHAR,
-    CVV VARCHAR NOT NULL,
-    balance float not null,
-    balance_limit float not null,
-    PRIMARY KEY (id)
-);
-CREATE TABLE transactions (
-    id uuid NOT NULL,
-    credit_card_id uuid NOT NULL references credit_cards(id),
-    amount float NOT NULL,
-    status VARCHAR NOT NULL,
-    description VARCHAR,
-    store VARCHAR NOT NULL,
-    created_at timestamp not null,
-    PRIMARY KEY (id)
-);
-CREATE EXTENSION "pgcrypto";
-INSERT INTO credit_cards (id, name, number, expiration_month, expiration_year, CVV, balance, balance_limit) VALUES (
-    gen_random_uuid(), 'John Doe', '1234567890123456', '01', '2025', '555', 0, 1000
-);
-```
+Crie as tabelas para o banco de dados executando essas [queries](/codebank/db.sql).
 
 Entre no container da aplicação executando no terminal o comando `docker exec -it codebank-app-1 bash`, o nome do container provavelmente será "codebank-app-1", caso contrário altere de acordo com o nome gerado pelo docker. Execute o comando `go run main.go`, será baixado os pacotes na primeira vez. Após isso, se sucesso, será mostrado no terminal "Rodando gRPC Server".
 
